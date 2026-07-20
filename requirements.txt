@@ -1,0 +1,15 @@
+pydantic[email]
+httpx
+pandas
+polars
+duckdb
+pyarrow
+pytest
+pytest-asyncio
+ruff
+scipy
+scikit-learn
+plotly
+joblib
+jinja2
+schedule

@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+Python_data_0720_Day1/Total1/output/
+.DS_Store
