@@ -1,0 +1,4 @@
+engine,min,mean,median,std,pandas_speedup
+Polars,14.53,25.02,15.72,17.16,18.53
+DuckDB,77.65,86.31,84.22,9.88,3.46
+Pandas,282.52,299.43,291.29,22.14,1.0

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f3f6fb;
+            color: #26364a;
+            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header, .card, .table-box {
+            padding: 24px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            color: #2457a7;
+        }
+
+        .generated-at {
+            color: #6d7885;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin: 0;
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #6d7885;
+            font-size: 15px;
+        }
+
+        .card strong {
+            color: #2457a7;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            border-bottom: 1px solid #dde3ea;
+            text-align: right;
+        }
+
+        th {
+            background: #2457a7;
+            color: white;
+        }
+
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+
+        tbody tr:hover {
+            background: #f1f6ff;
+        }
+
+        @media (max-width: 800px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <!-- STEP 4 체크포인트: 생성 시각이 표시되는 HTML 보고서 -->
+        <section class="header">
+            <h1>{{ title }}</h1>
+            <div class="generated-at">생성 시각: {{ generated_at }}</div>
+        </section>
+
+        <!-- STEP 3 체크포인트: 전체 KPI 렌더링 -->
+        <section class="kpi-grid">
+            <div class="card">
+                <h3>전체 주문 건수</h3>
+                <strong>{{ kpis.order_count | number }}건</strong>
+            </div>
+
+            <div class="card">
+                <h3>전체 매출</h3>
+                <strong>{{ kpis.total_sales | number }}원</strong>
+            </div>
+
+            <div class="card">
+                <h3>평균 주문 금액</h3>
+                <strong>{{ kpis.average_order_sales | number }}원</strong>
+            </div>
+
+            <div class="card">
+                <h3>매출 1위 카테고리</h3>
+                <strong>{{ kpis.top_category }}</strong>
+            </div>
+        </section>
+
+        <!-- STEP 3 체크포인트: 카테고리별 매출표 반복 렌더링 -->
+        <section class="table-box">
+            <h2>카테고리별 매출 현황</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>주문 건수</th>
+                        <th>판매 수량</th>
+                        <th>평균 단가</th>
+                        <th>총매출</th>
+                        <th>매출 비중</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in category_rows %}
+                    <tr>
+                        <td>{{ row.category }}</td>
+                        <td>{{ row.order_count | number }}</td>
+                        <td>{{ row.total_quantity | number }}</td>
+                        <td>{{ row.average_price | number }}원</td>
+                        <td>{{ row.total_sales | number }}원</td>
+                        <td>{{ row.sales_share | percent }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
